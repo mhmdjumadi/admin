@@ -15,7 +15,7 @@ class Project extends Model
         'company',
         'email',
         'phone',
-        // 'bill'
+        'bill'
     ];
 
 }
