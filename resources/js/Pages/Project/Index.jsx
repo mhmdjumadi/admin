@@ -8,7 +8,7 @@ import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import BluebirdButton from '@/Components/BluebirdButton';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 
 export default function Project({ projects, auth, flash }) {
     const [open, setOpen] = useState(false);
@@ -17,6 +17,7 @@ export default function Project({ projects, auth, flash }) {
     const companyInput = useRef();
     const emailInput = useRef();
     const phoneInput = useRef();
+    const priceInput = useRef();
     const billInput = useRef();
 
     const {
@@ -32,30 +33,9 @@ export default function Project({ projects, auth, flash }) {
         company: '',
         email: '',
         phone: '',
+        price: '',
         bill: ''
     });
-
-    const detailProject = async (projectId) => {
-        try {
-            const response = await fetch(`/projects/${projectId}`);
-            const data = await response.json();
-
-            if (data) {
-                setData({
-                    project_name: data.project_name,
-                    person: data.person,
-                    company: data.company,
-                    email: data.email,
-                    phone: data.phone,
-                    bill: data.bill
-                });
-
-                confirmOpen();
-            }
-        } catch (error) {
-            console.error('Error fetching project details:', error);
-        }
-    };
 
     const confirmOpen = () => {
         setOpen(true);
@@ -64,7 +44,7 @@ export default function Project({ projects, auth, flash }) {
     const submit = async (e) => {
         e.preventDefault();
 
-        post(route('project.store'), {
+        post(route('projects.store'), {
             onSuccess: closeModal(),
             onFinish: () => reset(),
         });
@@ -76,21 +56,9 @@ export default function Project({ projects, auth, flash }) {
         reset();
     };
 
-    const deleteProject = async (projectId) => {
+    const deleteProject = async (id) => {
         try {
-            const response = await fetch(`/projects/${projectId}`, {
-                method: 'DELETE'
-            });
-
-            if (response.ok) {
-                console.log('Project deleted successfully');
-                setData(prevData => ({
-                    ...prevData,
-                    projects: prevData.projects.filter(project => project.id !== projectId)
-                }));
-            } else {
-                console.error('Failed to delete project');
-            }
+            router.delete(`/projects/${id}`);
         } catch (error) {
             console.error('Error deleting project:', error);
         }
@@ -145,6 +113,9 @@ export default function Project({ projects, auth, flash }) {
                                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                 Phone
                                             </th>
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                Price
+                                            </th>
                                             <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                                 <span className="sr-only">Edit</span>
                                             </th>
@@ -160,10 +131,11 @@ export default function Project({ projects, auth, flash }) {
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.company}</td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.email}</td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.phone}</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Rp{project.price}</td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                    <button className="text-indigo-600 hover:text-indigo-900" onClick={() => detailProject(project.id)}>
-                                                        Edit<span className="sr-only">, {project.name}</span>
-                                                    </button>
+                                                    <a href={route('projects.show', project.id)} className="text-indigo-600 hover:text-indigo-900 ml-4">
+                                                        View<span className="sr-only">, {project.name}</span>
+                                                    </a>
                                                     <button className="text-red-600 hover:text-red-900 ml-4" onClick={() => deleteProject(project.id)}>
                                                         Delete<span className="sr-only">, {project.name}</span>
                                                     </button>
@@ -276,6 +248,24 @@ export default function Project({ projects, auth, flash }) {
                                 />
 
                                 <InputError message={errors.phone} className="mt-2" />
+                            </div>
+
+                            <div>
+                                <InputLabel htmlFor="price" value="Price" />
+
+                                <TextInput
+                                    id="price"
+                                    type="text"
+                                    name="price"
+                                    ref={priceInput}
+                                    value={data.Price}
+                                    onChange={(e) => setData('price', e.target.value)}
+                                    className="mt-1 w-full"
+                                    required
+                                    placeholder="Price"
+                                />
+
+                                <InputError message={errors.price} className="mt-2" />
                             </div>
 
                             <div>

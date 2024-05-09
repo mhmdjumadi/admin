@@ -15,6 +15,7 @@ class Project extends Model
         'company',
         'email',
         'phone',
+        'price',
         'bill'
     ];
 

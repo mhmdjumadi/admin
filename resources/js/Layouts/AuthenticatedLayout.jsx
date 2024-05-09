@@ -19,7 +19,7 @@ import Dropdown from '@/Components/Dropdown';
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: route().current('dashboard') },
     { name: 'Team', href: '#', icon: UsersIcon, current: false },
-    { name: 'Projects', href: '/projects', icon: FolderIcon, current: route().current('project') },
+    { name: 'Projects', href: '/projects', icon: FolderIcon, current: route().current('projects') },
     { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
     { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
     { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
