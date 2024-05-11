@@ -58,7 +58,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-
+        $project->load('invoices');
         return Inertia::render('Project/Detail', compact('project'));
     }
 

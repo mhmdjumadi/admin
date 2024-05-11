@@ -9,6 +9,7 @@ import { useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import BluebirdButton from '@/Components/BluebirdButton';
 import { Head, router } from '@inertiajs/react';
+import Currency from '@/Components/Currency';
 
 export default function Project({ projects, auth, flash }) {
     const [open, setOpen] = useState(false);
@@ -131,7 +132,7 @@ export default function Project({ projects, auth, flash }) {
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.company}</td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.email}</td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.phone}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Rp{project.price}</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Currency amount={project.price} currency="idr" /></td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                     <a href={route('projects.show', project.id)} className="text-indigo-600 hover:text-indigo-900 ml-4">
                                                         View<span className="sr-only">, {project.name}</span>

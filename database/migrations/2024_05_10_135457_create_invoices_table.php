@@ -10,15 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('project_name');
-            $table->string('person');
-            $table->string('company');
-            $table->string('email');
-            $table->string('phone');
-            $table->decimal('price', 10, 2);
-            $table->decimal('bill', 10, 2)->nullable();
+            $table->foreignUuid('project_id')->constrained('projects')->onDelete('cascade');
+            $table->timestamp('invoice_date');
+            $table->string('invoice_name');
+            $table->string('invoice_no');
+            $table->decimal('total', 10, 2);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('invoices');
     }
 };
