@@ -44,7 +44,7 @@ class InvoiceController extends Controller
 
         try {
             Invoice::create($validate);
-            return back()->with('success', 'Success create new invoice!');
+            return back()->with('success', 'Invoice created successfully!!');
         } catch (\Throwable $th) {
             return back()->with('warning', $th->getMessage());
         }
@@ -81,7 +81,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoice->delete();
-            return back()->with('success', 'Invoice deleted successfully');
+            return back()->with('success', 'Invoice deleted successfully!!');
         } catch (\Throwable $th) {
             return back()->with('warning', $th->getMessage());
         }

@@ -48,7 +48,7 @@ class ProjectController extends Controller
 
         try {
             Project::create($validate);
-            return back()->with('success', 'Success create new project!');
+            return back()->with('success', 'Project created successfully!!');
         } catch (\Throwable $th) {
             return back()->with('warning', $th->getMessage());
         }
@@ -99,7 +99,7 @@ class ProjectController extends Controller
                 'billing_month' => $request->billing_month,
                 'updated_by' => Auth::user()->id,
             ]);
-            return back()->with('success', 'Project deleted successfully');
+            return back()->with('success', 'Project updated successfully!!');
         } catch (\Throwable $th) {
             return back()->with(['warning' => $th->getMessage()]);
         }
@@ -112,7 +112,7 @@ class ProjectController extends Controller
     {
         try {
             $project->delete();
-            return back()->with('success', 'Project deleted successfully');
+            return back()->with('success', 'Project deleted successfully!!');
         } catch (\Throwable $th) {
             return back()->with('warning', $th->getMessage());
         }
