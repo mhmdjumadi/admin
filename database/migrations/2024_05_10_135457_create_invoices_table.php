@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->timestamp('invoice_date');
             $table->string('invoice_name');
             $table->string('invoice_no');
-            $table->decimal('total', 10, 2);
+            $table->float('amount');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

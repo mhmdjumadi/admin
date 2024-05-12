@@ -16,7 +16,8 @@ class Project extends Model
         'email',
         'phone',
         'price',
-        'bill'
+        'billing_amount',
+        'billing_month'
     ];
 
     public $incrementing = false;

@@ -16,7 +16,8 @@ class Invoice extends Model
         'invoice_date',
         'invoice_name',
         'invoice_no',
-        'total',
+        'amount',
+        'description',
     ];
 
     public $incrementing = false;

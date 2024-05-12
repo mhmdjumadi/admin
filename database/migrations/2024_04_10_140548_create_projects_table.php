@@ -17,8 +17,9 @@ return new class extends Migration {
             $table->string('company');
             $table->string('email');
             $table->string('phone');
-            $table->decimal('price', 10, 2);
-            $table->decimal('bill', 10, 2)->nullable();
+            $table->float('price');
+            $table->float('billing_amount')->nullable();
+            $table->string('billing_month');
             $table->timestamps();
         });
     }

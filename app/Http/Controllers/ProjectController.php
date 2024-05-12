@@ -42,7 +42,8 @@ class ProjectController extends Controller
             'email' => 'required|email',
             'phone' => 'required',
             'price' => 'required',
-            'bill' => 'numeric',
+            'billing_amount' => 'numeric',
+            'billing_month' => 'required',
         ]);
 
         try {
@@ -83,6 +84,7 @@ class ProjectController extends Controller
             'email' => 'required|email',
             'phone' => 'required',
             'price' => 'required|numeric',
+            'billing_month' => 'required',
         ]);
 
         try {
@@ -93,7 +95,8 @@ class ProjectController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'price' => $request->price,
-                'bill' => $request->bill,
+                'billing_amount' => $request->billing_amount,
+                'billing_month' => $request->billing_month,
                 'updated_by' => Auth::user()->id,
             ]);
             return back()->with('success', 'Project deleted successfully');

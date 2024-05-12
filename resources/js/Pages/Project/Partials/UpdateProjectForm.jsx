@@ -13,7 +13,9 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
     const emailInput = useRef();
     const phoneInput = useRef();
     const priceInput = useRef();
-    const billInput = useRef();
+    const billingAmountInput = useRef();
+    const billingMonthInput = useRef();
+
 
     const {
         data,
@@ -29,7 +31,8 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
         email: project?.email || '',
         phone: project?.phone || '',
         price: project?.price || '',
-        bill: project?.bill || '',
+        billing_amount: project?.billing_amount || '',
+        billing_month: project?.billing_month || '',
     });
 
     const handleUpdate = (e) => {
@@ -49,16 +52,12 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                 <div className="sm:flex-auto">
                     <h1 className="text-lg font-semibold leading-6 text-gray-900">Projects</h1>
                     <p className="mt-2 text-sm text-gray-700">
-                        A list of all the users in your account including their name, title, email and role.
+                        A project in your account.
                     </p>
                 </div>
             </div>
 
             <form onSubmit={handleUpdate}>
-                <p className="mt-1 text-sm text-gray-600">
-                    Once your account is deleted, all of its resources and data will be permanently deleted. Please
-                    enter your password to confirm you would like to permanently delete your account.
-                </p>
                 <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-4 mt-6">
                     <div>
                         <InputLabel htmlFor="project_name" value="Project Name" />
@@ -131,8 +130,6 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
 
                         <InputError message={errors.email} className="mt-2" />
                     </div>
-                </div>
-                <div className="grid lg:grid-cols-3 md:grid-cols-3 gap-4 mt-4">
                     <div>
                         <InputLabel htmlFor="phone" value="Phone" />
 
@@ -170,27 +167,43 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                     </div>
 
                     <div>
-                        <InputLabel htmlFor="bill" value="Bill" />
+                        <InputLabel htmlFor="billing_amount" value="Billing Amount" />
 
                         <TextInput
-                            id="bill"
+                            id="billing_amount"
                             type="text"
-                            name="bill"
-                            ref={billInput}
-                            value={data.bill}
-                            onChange={(e) => setData('bill', e.target.value)}
+                            name="billing_amount"
+                            ref={billingAmountInput}
+                            value={data.billing_amount}
+                            onChange={(e) => setData('billing_amount', e.target.value)}
                             className="mt-1 w-full"
                             required
                             placeholder="0"
                         />
 
-                        <InputError message={errors.bill} className="mt-2" />
+                        <InputError message={errors.billing_amount} className="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel htmlFor="billing_month" value="Billing Month" />
+
+                        <TextInput
+                            id="billing_month"
+                            type="text"
+                            name="billing_month"
+                            ref={billingMonthInput}
+                            value={data.billing_month}
+                            onChange={(e) => setData('billing_month', e.target.value)}
+                            className="mt-1 w-full"
+                            required
+                            placeholder="Billing Month"
+                        />
+
+                        <InputError message={errors.billing_month} className="mt-2" />
                     </div>
                 </div>
 
                 <div className="mt-6 flex justify-end">
-                    {/* <SecondaryButton onClick={closeModal}>Cancel</SecondaryButton> */}
-
                     <BluebirdButton className="ms-3" disabled={processing}>
                         Update Project
                     </BluebirdButton>

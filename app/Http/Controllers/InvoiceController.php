@@ -35,10 +35,11 @@ class InvoiceController extends Controller
             'project_id' => 'required',
             'invoice_date' => 'required',
             'invoice_name' => 'required',
-            'total' => 'required|numeric',
+            'amount' => 'required|numeric',
         ]);
 
         $validate["invoice_no"] = "INV-{$timestamp}-{$randomNumber}";
+        $validate["description"] = $request->description;
 
 
         try {

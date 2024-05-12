@@ -10,6 +10,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import BluebirdButton from '@/Components/BluebirdButton';
 import { Head, router } from '@inertiajs/react';
 import Currency from '@/Components/Currency';
+import Date from '@/Components/Date';
 
 export default function Project({ projects, auth, flash }) {
     const [open, setOpen] = useState(false);
@@ -19,7 +20,8 @@ export default function Project({ projects, auth, flash }) {
     const emailInput = useRef();
     const phoneInput = useRef();
     const priceInput = useRef();
-    const billInput = useRef();
+    const billingAmountInput = useRef();
+    const billingMonthInput = useRef();
 
     const {
         data,
@@ -35,7 +37,8 @@ export default function Project({ projects, auth, flash }) {
         email: '',
         phone: '',
         price: '',
-        bill: ''
+        billing_amount: '',
+        billing_month: ''
     });
 
     const confirmOpen = () => {
@@ -80,17 +83,13 @@ export default function Project({ projects, auth, flash }) {
                         <div className="sm:flex-auto">
                             <h1 className="text-base font-semibold leading-6 text-gray-900">Projects</h1>
                             <p className="mt-2 text-sm text-gray-700">
-                                A list of all the users in your account including their name, title, email and role.
+                                A list of all the project in your account.
                             </p>
                         </div>
                         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                            <button
-                                onClick={confirmOpen}
-                                type="button"
-                                className="block rounded-md bg-bluebird px-5 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Add project
-                            </button>
+                            <BluebirdButton className="ms-3" onClick={confirmOpen}>
+                                Add Project
+                            </BluebirdButton>
                         </div>
                     </div>
                     <div className="mt-8 flow-root">
@@ -117,6 +116,12 @@ export default function Project({ projects, auth, flash }) {
                                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                                 Price
                                             </th>
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                Billing Month
+                                            </th>
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                                Created
+                                            </th>
                                             <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                                 <span className="sr-only">Edit</span>
                                             </th>
@@ -133,6 +138,8 @@ export default function Project({ projects, auth, flash }) {
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.email}</td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.phone}</td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Currency amount={project.price} currency="idr" /></td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.billing_month}</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Date date={project.created_at} format="DD-MM-YYYY" /></td>
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                                     <a href={route('projects.show', project.id)} className="text-indigo-600 hover:text-indigo-900 ml-4">
                                                         View<span className="sr-only">, {project.name}</span>
@@ -156,10 +163,6 @@ export default function Project({ projects, auth, flash }) {
                             Add project
                         </h2>
 
-                        <p className="mt-1 text-sm text-gray-600">
-                            Once your account is deleted, all of its resources and data will be permanently deleted. Please
-                            enter your password to confirm you would like to permanently delete your account.
-                        </p>
                         <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-4 mt-6">
                             <div>
                                 <InputLabel htmlFor="project_name" value="Project Name" />
@@ -259,32 +262,50 @@ export default function Project({ projects, auth, flash }) {
                                     type="text"
                                     name="price"
                                     ref={priceInput}
-                                    value={data.Price}
+                                    value={data.price}
                                     onChange={(e) => setData('price', e.target.value)}
                                     className="mt-1 w-full"
                                     required
-                                    placeholder="Price"
+                                    placeholder="0"
                                 />
 
                                 <InputError message={errors.price} className="mt-2" />
                             </div>
 
                             <div>
-                                <InputLabel htmlFor="bill" value="Bill" />
+                                <InputLabel htmlFor="billing_amount" value="Billing Amount" />
 
                                 <TextInput
-                                    id="bill"
+                                    id="billing_amount"
                                     type="text"
-                                    name="bill"
-                                    ref={billInput}
-                                    value={data.bill}
-                                    onChange={(e) => setData('bill', e.target.value)}
+                                    name="billing_amount"
+                                    ref={billingAmountInput}
+                                    value={data.billing_amount}
+                                    onChange={(e) => setData('billing_amount', e.target.value)}
                                     className="mt-1 w-full"
                                     required
-                                    placeholder="Bill"
+                                    placeholder="0"
                                 />
 
-                                <InputError message={errors.bill} className="mt-2" />
+                                <InputError message={errors.billing_amount} className="mt-2" />
+                            </div>
+
+                            <div>
+                                <InputLabel htmlFor="billing_month" value="Billing Month" />
+
+                                <TextInput
+                                    id="billing_month"
+                                    type="text"
+                                    name="billing_month"
+                                    ref={billingMonthInput}
+                                    value={data.billing_month}
+                                    onChange={(e) => setData('billing_month', e.target.value)}
+                                    className="mt-1 w-full"
+                                    required
+                                    placeholder="Billing Month"
+                                />
+
+                                <InputError message={errors.billing_month} className="mt-2" />
                             </div>
                         </div>
 

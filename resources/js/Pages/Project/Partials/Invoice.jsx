@@ -14,7 +14,8 @@ export default function Invoice({ project, flash, className = '' }) {
     const [open, setOpen] = useState(false);
     const invoiceNameInput = useRef();
     const invoiceDateInput = useRef();
-    const totalInput = useRef();
+    const amountInput = useRef();
+    const descriptionInput = useRef();
 
     const {
         data,
@@ -27,7 +28,8 @@ export default function Invoice({ project, flash, className = '' }) {
         project_id: project?.id || '',
         invoice_date: '',
         invoice_name: '',
-        total: '',
+        amount: '',
+        description: '',
     });
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -61,17 +63,13 @@ export default function Invoice({ project, flash, className = '' }) {
                 <div className="sm:flex-auto">
                     <h1 className="text-base font-semibold leading-6 text-gray-900">Invoices</h1>
                     <p className="mt-2 text-sm text-gray-700">
-                        A list of all the users in your account including their name, title, email and role.
+                        A list of all the invoices in your project.
                     </p>
                 </div>
                 <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <button
-                        onClick={() => setOpen(true)}
-                        type="button"
-                        className="block rounded-md bg-bluebird px-5 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
+                    <BluebirdButton className="ms-3" onClick={() => setOpen(true)}>
                         Add invoice
-                    </button>
+                    </BluebirdButton>
                 </div>
             </div>
             <div className="mt-8 flow-root">
@@ -90,7 +88,10 @@ export default function Invoice({ project, flash, className = '' }) {
                                         Number
                                     </th>
                                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                        Total
+                                        Amount
+                                    </th>
+                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        Description
                                     </th>
                                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                         Created
@@ -106,10 +107,11 @@ export default function Invoice({ project, flash, className = '' }) {
                                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                                             {invoice.invoice_name}
                                         </td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Date date={invoice.invoice_date} format="DD MMMM YYYY" /></td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Date date={invoice.invoice_date} format="DD-MM-YYYY" /></td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{invoice.invoice_no}</td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Currency amount={invoice.total} currency="idr" /></td>
-                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Date date={invoice.created_at} format="DD MMMM YYYY" /></td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Currency amount={invoice.amount} currency="idr" /></td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{invoice.description}</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><Date date={invoice.created_at} format="DD-MM-YYYY" /></td>
                                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                                             <button className="text-red-600 hover:text-red-900 ml-4" onClick={() => deleteInvoice(invoice.id)}>
                                                 Delete<span className="sr-only">, {invoice.name}</span>
@@ -125,15 +127,14 @@ export default function Invoice({ project, flash, className = '' }) {
 
             <Modal show={open} onClose={closeModal}>
                 <form onSubmit={handleSubmit} className="p-6">
-                    <h2 className="text-lg font-medium text-gray-900">
+                    <h2 className="text-lg font-medium text-gray-900 ms-3">
                         Add Invoice
                     </h2>
 
                     <p className="mt-1 text-sm text-gray-600">
-                        Once your account is deleted, all of its resources and data will be permanently deleted. Please
-                        enter your password to confirm you would like to permanently delete your account.
+                        Add your invoices project.
                     </p>
-                    <div className="grid lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 gap-4 mt-6">
+                    <div className="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2 gap-4 mt-6">
                         <div>
                             <InputLabel htmlFor="invoice_date" value="Invoice Date" />
 
@@ -171,21 +172,39 @@ export default function Invoice({ project, flash, className = '' }) {
                         </div>
 
                         <div>
-                            <InputLabel htmlFor="total" value="Total" />
+                            <InputLabel htmlFor="amount" value="Amount" />
 
                             <TextInput
-                                id="total"
+                                id="amount"
                                 type="text"
-                                name="total"
-                                ref={totalInput}
-                                value={data.total}
-                                onChange={(e) => setData('total', e.target.value)}
+                                name="amount"
+                                ref={amountInput}
+                                value={data.amount}
+                                onChange={(e) => setData('amount', e.target.value)}
                                 className="mt-1 w-full"
                                 required
                                 placeholder="0"
                             />
 
-                            <InputError message={errors.total} className="mt-2" />
+                            <InputError message={errors.amount} className="mt-2" />
+                        </div>
+
+                        <div>
+                            <InputLabel htmlFor="description" value="Description" />
+
+                            <TextInput
+                                id="description"
+                                type="text"
+                                name="description"
+                                ref={descriptionInput}
+                                value={data.description}
+                                onChange={(e) => setData('description', e.target.value)}
+                                className="mt-1 w-full"
+                                required
+                                placeholder="Description"
+                            />
+
+                            <InputError message={errors.description} className="mt-2" />
                         </div>
                     </div>
 
