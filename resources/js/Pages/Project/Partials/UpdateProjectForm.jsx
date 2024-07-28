@@ -50,7 +50,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
 
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <h1 className="text-lg font-semibold leading-6 text-gray-900">Projects</h1>
+                    <h1 className="text-base font-semibold leading-6 text-gray-900">Projects</h1>
                     <p className="mt-2 text-sm text-gray-700">
                         A project in your account.
                     </p>
@@ -69,7 +69,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                             ref={projectNameInput}
                             value={data.project_name}
                             onChange={(e) => setData('project_name', e.target.value)}
-                            className="mt-1 w-full"
+                            className="mt-1 w-full text-sm"
                             required
                             placeholder="Project Name"
                         />
@@ -87,7 +87,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                             ref={personInput}
                             value={data.person}
                             onChange={(e) => setData('person', e.target.value)}
-                            className="mt-1 w-full"
+                            className="mt-1 w-full text-sm"
                             required
                             placeholder="Person"
                         />
@@ -105,7 +105,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                             ref={companyInput}
                             value={data.company}
                             onChange={(e) => setData('company', e.target.value)}
-                            className="mt-1 w-full"
+                            className="mt-1 w-full text-sm"
                             required
                             placeholder="Company"
                         />
@@ -123,7 +123,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                             ref={emailInput}
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            className="mt-1 w-full"
+                            className="mt-1 w-full text-sm"
                             required
                             placeholder="Email"
                         />
@@ -140,7 +140,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                             ref={phoneInput}
                             value={data.phone}
                             onChange={(e) => setData('phone', e.target.value)}
-                            className="mt-1 w-full"
+                            className="mt-1 w-full text-sm"
                             required
                             placeholder="Phone"
                         />
@@ -158,7 +158,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                             ref={priceInput}
                             value={data.price}
                             onChange={(e) => setData('price', e.target.value)}
-                            className="mt-1 w-full"
+                            className="mt-1 w-full text-sm"
                             required
                             placeholder="0"
                         />
@@ -176,7 +176,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                             ref={billingAmountInput}
                             value={data.billing_amount}
                             onChange={(e) => setData('billing_amount', e.target.value)}
-                            className="mt-1 w-full"
+                            className="mt-1 w-full text-sm"
                             required
                             placeholder="0"
                         />
@@ -194,7 +194,7 @@ export default function UpdateProjectForm({ project, flash, className = '' }) {
                             ref={billingMonthInput}
                             value={data.billing_month}
                             onChange={(e) => setData('billing_month', e.target.value)}
-                            className="mt-1 w-full"
+                            className="mt-1 w-full text-sm"
                             required
                             placeholder="Billing Month"
                         />

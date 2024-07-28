@@ -13,7 +13,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Roboto','Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 bluebird: "#08A8E4",

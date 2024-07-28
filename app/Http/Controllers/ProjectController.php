@@ -6,6 +6,7 @@ use App\Models\Project;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Inertia\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,6 +19,15 @@ class ProjectController extends Controller
     {
         $projects = Project::all();
         return Inertia::render('Project/Index', compact('projects'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function indexAPI(): JsonResponse
+    {
+        $projects = Project::all();
+        return response()->json($projects);
     }
 
     /**

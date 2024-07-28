@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { Dialog, Menu, Transition } from '@headlessui/react'
+import { Dialog, DialogPanel, Menu, MenuButton, MenuItems, Transition, TransitionChild } from '@headlessui/react'
 import {
     Bars3Icon,
     BellIcon,
@@ -7,6 +7,7 @@ import {
     ChartPieIcon,
     Cog6ToothIcon,
     DocumentDuplicateIcon,
+    DocumentTextIcon,
     FolderIcon,
     HomeIcon,
     UsersIcon,
@@ -29,18 +30,20 @@ export default function Authenticated({ user, header, children }) {
 
     const menus = [
         { name: 'Project', href: route('projects.index'), icon: FolderIcon, current: route().current('projects.index') },
+        { name: 'Invoice', href: route('invoices.index'), icon: DocumentTextIcon, current: route().current('invoices.index') },
     ]
 
     const pages = [
-        { name: 'Project', href: route('projects.index'), current: route().current('projects.index') }
+        { name: 'Project', href: route('projects.index'), current: route().current('projects.index') },
+        { name: 'Invoice', href: route('invoices.index'), current: route().current('invoices.index') }
     ]
 
     return (
         <>
             <div className=' bg-gray-50'>
-                <Transition.Root show={sidebarOpen} as={Fragment}>
+                <Transition show={sidebarOpen} as={Fragment}>
                     <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
-                        <Transition.Child
+                        <TransitionChild
                             as={Fragment}
                             enter="transition-opacity ease-linear duration-300"
                             enterFrom="opacity-0"
@@ -50,10 +53,10 @@ export default function Authenticated({ user, header, children }) {
                             leaveTo="opacity-0"
                         >
                             <div className="fixed inset-0 bg-gray-900/80" />
-                        </Transition.Child>
+                        </TransitionChild>
 
                         <div className="fixed inset-0 flex">
-                            <Transition.Child
+                            <TransitionChild
                                 as={Fragment}
                                 enter="transition ease-in-out duration-300 transform"
                                 enterFrom="-translate-x-full"
@@ -62,8 +65,8 @@ export default function Authenticated({ user, header, children }) {
                                 leaveFrom="translate-x-0"
                                 leaveTo="-translate-x-full"
                             >
-                                <Dialog.Panel className="relative mr-16 flex w-full max-w-xs flex-1">
-                                    <Transition.Child
+                                <DialogPanel className="relative mr-16 flex w-full max-w-xs flex-1">
+                                    <TransitionChild
                                         as={Fragment}
                                         enter="ease-in-out duration-300"
                                         enterFrom="opacity-0"
@@ -78,7 +81,7 @@ export default function Authenticated({ user, header, children }) {
                                                 <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
                                             </button>
                                         </div>
-                                    </Transition.Child>
+                                    </TransitionChild>
                                     {/* Sidebar component, swap this element with another sidebar if you like */}
                                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
                                         <div className="flex h-16 shrink-0 items-center border-b">
@@ -100,7 +103,7 @@ export default function Authenticated({ user, header, children }) {
                                                                     route().current('dashboard')
                                                                         ? 'bg-gray-50 text-bluebird'
                                                                         : 'text-gray-700 hover:text-bluebird hover:bg-gray-50',
-                                                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-medium'
                                                                 )}
                                                             >
                                                                 <HomeIcon
@@ -126,7 +129,7 @@ export default function Authenticated({ user, header, children }) {
                                                                         menu.current
                                                                             ? 'bg-gray-50 text-bluebird'
                                                                             : 'text-gray-700 hover:text-bluebird hover:bg-gray-50',
-                                                                        'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                                                        'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-medium'
                                                                     )}
                                                                 >
                                                                     <menu.icon
@@ -158,17 +161,17 @@ export default function Authenticated({ user, header, children }) {
                                             </ul>
                                         </nav>
                                     </div>
-                                </Dialog.Panel>
-                            </Transition.Child>
+                                </DialogPanel>
+                            </TransitionChild>
                         </div>
                     </Dialog>
-                </Transition.Root>
+                </Transition>
 
                 {/* Static sidebar for desktop */}
                 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
                         <div className="flex h-16 shrink-0 items-center border-b">
-                            <h1 className='text-3xl font-extrabold text-bluebird'>aqtaf.id</h1>
+                            <h1 className='text-3xl font-bold text-bluebird'>aqtaf.id</h1>
                         </div>
                         <nav className="flex flex-1 flex-col">
                             <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -181,7 +184,7 @@ export default function Authenticated({ user, header, children }) {
                                                     route().current('dashboard')
                                                         ? 'bg-gray-50 text-bluebird'
                                                         : 'text-gray-700 hover:text-bluebird hover:bg-gray-50',
-                                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                                    'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-medium'
                                                 )}
                                             >
                                                 <HomeIcon
@@ -207,7 +210,7 @@ export default function Authenticated({ user, header, children }) {
                                                         menu.current
                                                             ? 'bg-gray-50 text-bluebird'
                                                             : 'text-gray-700 hover:text-bluebird hover:bg-gray-50',
-                                                        'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+                                                        'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-medium'
                                                     )}
                                                 >
                                                     <menu.icon
@@ -284,7 +287,7 @@ export default function Authenticated({ user, header, children }) {
 
                                     {/* Profile dropdown */}
                                     <Menu as="div" className="relative">
-                                        <Menu.Button className="-m-1.5 flex items-center p-1.5">
+                                        <MenuButton className="-m-1.5 flex items-center p-1.5">
                                             <span className="sr-only">Open user menu</span>
                                             <img
                                                 className="h-8 w-8 rounded-full bg-gray-50"
@@ -292,12 +295,12 @@ export default function Authenticated({ user, header, children }) {
                                                 alt=""
                                             />
                                             <span className="hidden lg:flex lg:items-center">
-                                                <span className="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">
+                                                <span className="ml-4 text-sm font-medium leading-6 text-gray-900" aria-hidden="true">
                                                     {user.name}
                                                 </span>
                                                 <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                                             </span>
-                                        </Menu.Button>
+                                        </MenuButton>
                                         <Transition
                                             as={Fragment}
                                             enter="transition ease-out duration-100"
@@ -307,7 +310,7 @@ export default function Authenticated({ user, header, children }) {
                                             leaveFrom="transform opacity-100 scale-100"
                                             leaveTo="transform opacity-0 scale-95"
                                         >
-                                            <Menu.Items className="absolute right-0 z-10 mt-2.5 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                                            <MenuItems className="absolute right-0 z-10 mt-2.5 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                                                 {userNavigation.map((item) => (
                                                     // <Menu.Item key={item.name}>
                                                     //     {({ active }) => (
@@ -324,7 +327,7 @@ export default function Authenticated({ user, header, children }) {
                                                     // </Menu.Item>
                                                     <Dropdown.Link href={item.href} key={item.name} method={item.method}>{item.name}</Dropdown.Link>
                                                 ))}
-                                            </Menu.Items>
+                                            </MenuItems>
                                         </Transition>
                                     </Menu>
                                 </div>
@@ -333,46 +336,6 @@ export default function Authenticated({ user, header, children }) {
                     </div>
 
                     <main className='py-5'>
-                        {header && (
-                            <section className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 rounded-xl'>
-                                <nav className="flex border-gray-200 bg-white" aria-label="Breadcrumb">
-                                    <ol role="list" className="mx-auto flex w-full max-w-screen-xl space-x-4 px-4 sm:px-6 lg:px-8">
-                                        <li className="flex">
-                                            <div className="flex items-center">
-                                                <a href="#" className="text-gray-400 hover:text-gray-500">
-                                                    <HomeIcon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
-                                                    <span className="sr-only">Home</span>
-                                                </a>
-                                            </div>
-                                        </li>
-                                        {pages.map((page) => (
-                                            <li key={page.name} className="flex">
-                                                <div className="flex items-center">
-                                                    <svg
-                                                        className="h-full w-6 flex-shrink-0 text-gray-200"
-                                                        viewBox="0 0 24 44"
-                                                        preserveAspectRatio="none"
-                                                        fill="currentColor"
-                                                        aria-hidden="true"
-                                                    >
-                                                        <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
-                                                    </svg>
-                                                    <a
-                                                        href={page.href}
-                                                        className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
-                                                        aria-current={page.current ? 'page' : undefined}
-                                                    >
-                                                        {page.name}
-                                                    </a>
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ol>
-                                </nav>
-                            </section>
-
-                        )}
-
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-5 bg-gray-50">
                             {children}
                         </div>

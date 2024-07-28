@@ -98,28 +98,28 @@ export default function Project({ projects, auth, flash }) {
                                 <table className="min-w-full divide-y divide-gray-300">
                                     <thead>
                                         <tr>
-                                            <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
+                                            <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-medium text-gray-900 sm:pl-0">
                                                 Name
                                             </th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                                 Person
                                             </th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                                 Company
                                             </th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                                 Email
                                             </th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                                 Phone
                                             </th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                                 Price
                                             </th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                                 Billing Month
                                             </th>
-                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-medium text-gray-900">
                                                 Created
                                             </th>
                                             <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
@@ -130,7 +130,7 @@ export default function Project({ projects, auth, flash }) {
                                     <tbody className="divide-y divide-gray-200">
                                         {projects && projects.map((project) => (
                                             <tr key={project.id}>
-                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-normal text-gray-900 sm:pl-0">
                                                     {project.project_name}
                                                 </td>
                                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{project.person}</td>
@@ -174,7 +174,7 @@ export default function Project({ projects, auth, flash }) {
                                     ref={projectNameInput}
                                     value={data.project_name}
                                     onChange={(e) => setData('project_name', e.target.value)}
-                                    className="mt-1 w-full"
+                                    className="mt-1 w-full text-sm"
                                     required
                                     placeholder="Project Name"
                                 />
@@ -192,7 +192,7 @@ export default function Project({ projects, auth, flash }) {
                                     ref={personInput}
                                     value={data.person}
                                     onChange={(e) => setData('person', e.target.value)}
-                                    className="mt-1 w-full"
+                                    className="mt-1 w-full text-sm"
                                     required
                                     placeholder="Person"
                                 />
@@ -210,7 +210,7 @@ export default function Project({ projects, auth, flash }) {
                                     ref={companyInput}
                                     value={data.company}
                                     onChange={(e) => setData('company', e.target.value)}
-                                    className="mt-1 w-full"
+                                    className="mt-1 w-full text-sm"
                                     required
                                     placeholder="Company"
                                 />
@@ -228,7 +228,7 @@ export default function Project({ projects, auth, flash }) {
                                     ref={emailInput}
                                     value={data.email}
                                     onChange={(e) => setData('email', e.target.value)}
-                                    className="mt-1 w-full"
+                                    className="mt-1 w-full text-sm"
                                     required
                                     placeholder="Email"
                                 />
@@ -246,7 +246,7 @@ export default function Project({ projects, auth, flash }) {
                                     ref={phoneInput}
                                     value={data.phone}
                                     onChange={(e) => setData('phone', e.target.value)}
-                                    className="mt-1 w-full"
+                                    className="mt-1 w-full text-sm"
                                     required
                                     placeholder="Phone"
                                 />
@@ -264,7 +264,7 @@ export default function Project({ projects, auth, flash }) {
                                     ref={priceInput}
                                     value={data.price}
                                     onChange={(e) => setData('price', e.target.value)}
-                                    className="mt-1 w-full"
+                                    className="mt-1 w-full text-sm"
                                     required
                                     placeholder="0"
                                 />
@@ -282,7 +282,7 @@ export default function Project({ projects, auth, flash }) {
                                     ref={billingAmountInput}
                                     value={data.billing_amount}
                                     onChange={(e) => setData('billing_amount', e.target.value)}
-                                    className="mt-1 w-full"
+                                    className="mt-1 w-full text-sm"
                                     required
                                     placeholder="0"
                                 />
@@ -300,7 +300,7 @@ export default function Project({ projects, auth, flash }) {
                                     ref={billingMonthInput}
                                     value={data.billing_month}
                                     onChange={(e) => setData('billing_month', e.target.value)}
-                                    className="mt-1 w-full"
+                                    className="mt-1 w-full text-sm"
                                     required
                                     placeholder="Billing Month"
                                 />
